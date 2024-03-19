@@ -93,6 +93,9 @@ def main(argv):
         llama_config, dtype=get_float_dtype_by_name(FLAGS.dtype)
     )
 
+    # param_count = sum(x.size for x in jax.tree_leaves(model.params))
+    # print(f"Model parameters counts {param_count / 1000000}M")
+
     optimizer, optimizer_info = OptimizerFactory.get_optimizer(
         FLAGS.optimizer,
         get_weight_decay_mask(LLaMAConfig.get_weight_decay_exclusions())

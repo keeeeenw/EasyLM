@@ -14,9 +14,21 @@ export WANDB_API_KEY=''
 export PYTHONPATH="/home/ken/workspace/EasyLM/:$PYTHONPATH"
 
 # on linux CPU remember to install CUDA
+# Not sure if needed
 # conda install nvidia/label/cuda-11.8.0::cuda-toolkit
+# If there is cudnn mismatch
+# pip uninstall nvidia-cudnn-cu116
+# pip uninstall nvidia-cudnn-cu11
+# pip install nvidia-cudnn-cu11==8.6.0.163
+# pip uninstall fsspec
+# pip uninstall gcsfs                                                         
+# pip install -U datasets==2.16
+# pip install gcsfs
+
 # export LD_LIBRARY_PATH="/home/ken/anaconda3/envs/EasyLM/lib/python3.10/site-packages/nvidia/cudnn/lib/:/home/ken/anaconda3/envs/EasyLM/lib/:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="/home/ken/miniconda3/envs/EasyLM/lib/python3.10/site-packages/nvidia/cudnn/lib/:/home/ken/miniconda3/envs/EasyLM/lib/python3.10/site-packages/torch/lib/:$LD_LIBRARY_PATH"
+# export LD_LIBRARY_PATH="/home/ken/miniconda3/envs/EasyLM/lib/python3.10/site-packages/nvidia/cudnn/lib/:/home/ken/miniconda3/envs/EasyLM/lib/:/home/ken/miniconda3/envs/EasyLM/lib/python3.10/site-packages/nvidia/cublas/lib/:$LD_LIBRARY_PATH"
+# export LD_LIBRARY_PATH="/home/ken/miniconda3/envs/EasyLM/lib/python3.10/site-packages/nvidia/cudnn/lib/:/home/ken/miniconda3/envs/EasyLM/lib/:/home/ken/miniconda3/envs/EasyLM/lib/python3.10/site-packages/nvidia/cublas/lib/:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/home/ken/miniconda3/envs/EasyLM/lib/python3.10/site-packages/nvidia/cudnn/lib/:/home/ken/miniconda3/envs/EasyLM/lib/:$LD_LIBRARY_PATH"
 
 # Traceback (most recent call last):
 #   File "/home/ken/anaconda3/envs/EasyLM/lib/python3.10/runpy.py", line 196, in _run_module_as_main
@@ -44,7 +56,7 @@ python -m EasyLM.models.llama.llama_train \
     --log_freq=50 \
     --save_model_freq=0 \
     --save_milestone_freq=2500 \
-    --load_llama_config='tiny' \
+    --load_llama_config='tiny64M' \
     --update_llama_config='' \
     --load_dataset_state='' \
     --load_checkpoint='' \
@@ -58,7 +70,7 @@ python -m EasyLM.models.llama.llama_train \
     --train_dataset.type='huggingface' \
     --train_dataset.text_processor.fields='raw_content' \
     --train_dataset.huggingface_dataset.seq_length=2048 \
-    --train_dataset.huggingface_dataset.batch_size=4 \
+    --train_dataset.huggingface_dataset.batch_size=8 \
     --train_dataset.huggingface_dataset.path='togethercomputer/RedPajama-Data-V2' \
     --train_dataset.huggingface_dataset.name='sample' \
     --checkpointer.save_optimizer_state=True \
